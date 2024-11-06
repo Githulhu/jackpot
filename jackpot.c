@@ -15,7 +15,8 @@ void Initialize()
     srand(time(NULL));
 }
 
-void greeting() {
+void greeting()
+{
 
     printf("Herzlich willkommen!\n");
     printf("Drücke eine beliebige Taste, damit es losgeht!\n\n");
@@ -30,10 +31,16 @@ int CountWallet()
     printf("Wie viel möchtest du setzen? ");
     fflush(stdin);
     scanf("%d", &bet);
-
-    wallet = wallet - bet;
-
-    return bet;
+    if(bet<=wallet)
+    {
+        wallet = wallet - bet;
+        printf("Gut. %d Credits wurden gesetzt!\n\n", bet);
+        return bet;
+    } else
+    {
+        printf("Du kannst nicht mehr setzen, als du hast!\n");
+        CountWallet();
+    }
 }
 
 int main()
@@ -69,7 +76,7 @@ int main()
         if(ausgabe[0] == ausgabe[1] && ausgabe[0] == ausgabe[2]) {
             printf("JACKPOT!\n");
             printf("Dein neues Guthaben beträgt %d.", wallet);
-            wallet = walle + bet * 2;
+            wallet = wallet + bet * 2;
             }
             else if
                 ((ausgabe[0] == ausgabe[1] && ausgabe[0] != ausgabe[2]) ||
@@ -87,12 +94,18 @@ int main()
                 }
 
         printf("\n\n");
-
-        printf("Gib j ein, für noch einen Versuch! ");
-        fflush(stdout);
-        scanf(" %c", &wiederholen);
-        printf("\n");
+        if (wallet > 0)
+        {
+            printf("Gib j ein, für noch einen Versuch! ");
+            fflush(stdout);
+            scanf(" %c", &wiederholen);
+            printf("\n");
+        } else
+        {
+            printf("Du hast all dein Geld verspielt und bist bankrott!");
+            printf("\n");
+        }
     } while (wiederholen == 'j');
 
     return 0;
-}
+} 
