@@ -17,7 +17,6 @@ void Initialize()
 
 void greeting()
 {
-
     printf("Herzlich willkommen!\n");
     printf("Drücke eine beliebige Taste, damit es losgeht!\n\n");
     getch();
@@ -37,10 +36,10 @@ int CountWallet()
         printf("Gut. %d Credits wurden gesetzt!\n\n", bet);
         return bet;
     } else
-    {
-        printf("Du kannst nicht mehr setzen, als du hast!\n");
-        CountWallet();
-    }
+        {
+            printf("Du kannst nicht mehr setzen, als du hast!\n");
+            CountWallet();
+        }
 }
 
 int main()
@@ -59,7 +58,7 @@ int main()
         for(int i=0;i<3;i++)
         {
 
-            int random_index = rand() %5; // Zufälligen Index berechnen (von 0 bis 5 - 1)
+            int random_index = rand() %(sizeof(slotpool)); // Zufälligen Index berechnen (von 0 bis 5 - 1)
             char slot = slotpool[random_index];
             ausgabe[i] = slot;
 
@@ -68,15 +67,14 @@ int main()
             if(i==2)
                 {
                     printf("|");
-                    break;
                 } else
                     sleep(1);
         }
         printf("\n\n");
         if(ausgabe[0] == ausgabe[1] && ausgabe[0] == ausgabe[2]) {
+            wallet = wallet + bet * 2;
             printf("JACKPOT!\n");
             printf("Dein neues Guthaben beträgt %d.", wallet);
-            wallet = wallet + bet * 2;
             }
             else if
                 ((ausgabe[0] == ausgabe[1] && ausgabe[0] != ausgabe[2]) ||
@@ -94,7 +92,7 @@ int main()
                 }
 
         printf("\n\n");
-        if (wallet > 0)
+        if (wallet >0)
         {
             printf("Gib j ein, für noch einen Versuch! ");
             fflush(stdout);
@@ -104,8 +102,9 @@ int main()
         {
             printf("Du hast all dein Geld verspielt und bist bankrott!");
             printf("\n");
+            wiederholen = 'n';
         }
     } while (wiederholen == 'j');
 
     return 0;
-} 
+}
